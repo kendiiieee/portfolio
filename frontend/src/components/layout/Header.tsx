@@ -29,18 +29,18 @@ export function Header() {
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <Link
           href="#about"
-          className="font-display text-xl font-bold tracking-tight text-foreground transition hover:text-accent"
+          className="font-display text-lg font-semibold tracking-tight text-foreground transition hover:text-accent"
         >
           {SITE.name.split(' ')[0]}
-          <span className="text-accent">/</span>
+          <span className="text-accent">.</span>
         </Link>
 
-        <nav className="hidden items-center gap-6 lg:flex" aria-label="Main">
+        <nav className="hidden items-center gap-8 md:flex" aria-label="Main">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="text-xs font-semibold uppercase tracking-[0.12em] text-muted transition hover:text-accent"
+              className="text-sm font-medium text-muted transition hover:text-foreground"
             >
               {link.label}
             </Link>
@@ -54,7 +54,7 @@ export function Header() {
             onClick={() => {
               void recordAnalyticsEvent('resume_download').catch(() => undefined);
             }}
-            className="hidden items-center gap-2 border border-accent bg-accent px-4 py-2 text-sm font-semibold text-white transition hover:bg-transparent hover:text-accent sm:inline-flex"
+            className="hidden items-center gap-2 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-white transition hover:bg-accent/90 sm:inline-flex"
           >
             <Download className="h-4 w-4" />
             Resume
@@ -107,4 +107,8 @@ export function Header() {
               </a>
             </li>
           </ul>
-       
+        </nav>
+      ) : null}
+    </header>
+  );
+}

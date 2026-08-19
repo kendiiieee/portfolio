@@ -15,13 +15,18 @@ export function SectionHeading({
     align === 'center' ? 'items-center text-center' : 'items-start text-left';
 
   return (
-    <div className={`mb-10 flex flex-col gap-4 ${alignment}`}>
-      <span className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.2em] text-accent">
-        <span className="h-px w-8 bg-accent" aria-hidden />
+    <div className={`mb-12 flex flex-col gap-3 ${alignment}`}>
+      <span className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
         {eyebrow}
       </span>
-      <h2 className="max-w-3xl font-display text-4xl font-bold leading-none tracking-tight text-foreground sm:text-5xl">
+      <h2 className="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
         {title}
       </h2>
       {description ? (
-        <p className="max-w-2xl text-base
+        <p className="max-w-2xl text-base leading-relaxed text-muted">
+          {description}
+        </p>
+      ) : null}
+    </div>
+  );
+}

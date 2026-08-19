@@ -25,7 +25,7 @@ export const SOCIAL_LINKS: SocialLink[] = [
   {
     id: 'github',
     label: 'GitHub',
-    href: 'https://github.com/nicolecandelaria',
+    href: 'https://github.com/kendiiieee',
     icon: 'github',
   },
   {
