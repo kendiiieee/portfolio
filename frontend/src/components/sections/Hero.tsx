@@ -1,67 +1,72 @@
-import { getActiveSocialLinks, SITE } from '@/lib/constants';
-import { ProfileAvatar } from '@/components/ui/ProfileAvatar';
-import { SocialLinks } from '@/components/ui/SocialLinks';
-import { ArrowDown } from 'lucide-react';
+import { SITE } from '@/lib/constants';
+import { Globe, Sparkle } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 
 export function Hero() {
-  const socialLinks = getActiveSocialLinks();
-
   return (
     <section
       id="about"
-      className="relative overflow-hidden px-6 pb-20 pt-16 sm:pt-24"
+      className="relative isolate overflow-hidden bg-[#0c0b0b] text-[#f4ece6]"
     >
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(99,102,241,0.18),transparent_45%),radial-gradient(circle_at_bottom_left,rgba(14,165,233,0.12),transparent_40%)]" />
+      <div className="relative z-30 mx-auto flex max-w-[1320px] items-start justify-end px-6 pt-5 sm:px-10" />
 
-      <div className="relative mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1fr_auto] lg:gap-16">
-        <div className="max-w-3xl">
-          <p className="mb-4 text-sm font-semibold uppercase tracking-[0.25em] text-accent">
-            Welcome to my portfolio
-          </p>
-          <h1 className="font-display text-5xl font-bold leading-[1.05] tracking-tight text-foreground sm:text-6xl lg:text-7xl">
-            Hello, I&apos;m{' '}
-            <span className="bg-gradient-to-r from-accent to-sky-400 bg-clip-text text-transparent">
-              Nicole
-            </span>
-          </h1>
-          <p className="mt-6 text-xl font-medium text-foreground/90 sm:text-2xl">
-            {SITE.title}
-          </p>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
-            {SITE.tagline}
-          </p>
-
-          <div className="mt-10 flex flex-wrap items-center gap-4">
-            <Link
-              href="#projects"
-              className="inline-flex items-center justify-center rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white transition hover:bg-accent/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-            >
-              View Projects
-            </Link>
-            <Link
-              href="#contact"
-              className="inline-flex items-center justify-center rounded-full border border-border bg-surface px-6 py-3 text-sm font-semibold text-foreground transition hover:border-accent/40 hover:text-accent"
-            >
-              Contact Me
-            </Link>
-          </div>
-
-          <SocialLinks links={socialLinks} className="mt-8" />
+      <div className="relative mx-auto max-w-[1320px] px-6 pb-12 pt-2 sm:px-10">
+        <div
+          className="pointer-events-none relative z-0 -mb-8 select-none text-center font-editorial uppercase leading-[0.72] tracking-[-0.045em] sm:-mb-12"
+          aria-hidden
+        >
+          <span className="block translate-x-[-3vw] text-[18vw] text-[#efe6dc] sm:text-[13vw] lg:text-[9.5rem]">
+            Nicole
+          </span>
+          <span className="block translate-x-[3vw] text-[14vw] text-transparent [-webkit-text-stroke:1px_var(--accent)] sm:text-[10vw] lg:text-[7.5rem]">
+            Candelaria
+          </span>
         </div>
 
-        <ProfileAvatar src={SITE.profileImage} name={SITE.name} />
-      </div>
+        <div className="relative z-10 -mt-10 grid items-end gap-8 lg:-mt-28 lg:grid-cols-[1fr_minmax(280px,400px)_1fr] lg:gap-6">
+          <div className="order-2 max-w-md lg:order-1 lg:pb-6">
+            <h1 className="text-[1.55rem] font-semibold uppercase leading-[1.18] tracking-[0.04em] text-white sm:text-[1.75rem]">
+              I build web and mobile systems that stay reliable
+            </h1>
+            <Link
+              href="#projects"
+              className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/70 px-5 py-2.5 text-[11px] font-medium uppercase tracking-[0.16em] text-white transition hover:border-accent hover:text-accent"
+            >
+              Available for work
+              <Sparkle className="h-3.5 w-3.5 fill-current" />
+            </Link>
+            <p className="mt-8 font-display text-2xl font-semibold uppercase tracking-[0.08em] text-accent sm:text-3xl">
+              {SITE.name}
+            </p>
+          </div>
 
-      <div className="relative mx-auto max-w-6xl">
-        <Link
-          href="#academics"
-          className="mt-16 inline-flex items-center gap-2 text-sm text-muted transition hover:text-accent"
-          aria-label="Scroll to academic background"
-        >
-          <ArrowDown className="h-4 w-4 animate-bounce" />
-          Explore more
-        </Link>
+          <div className="order-1 mx-auto w-full max-w-[400px] lg:order-2">
+            <div className="relative mx-auto aspect-[3/4] w-full overflow-hidden">
+              <Image
+                src={SITE.profileImage}
+                alt={`Portrait of ${SITE.name}`}
+                fill
+                priority
+                quality={95}
+                className="object-cover object-[center_12%]"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 800px"
+              />
+              <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#0c0b0b] to-transparent" />
+            </div>
+          </div>
+
+          <div className="order-3 max-w-sm lg:justify-self-end lg:pb-6">
+            <p className="text-sm leading-relaxed text-white/70">
+              {SITE.tagline} Focused on APIs, databases, and product systems
+              across web and mobile.
+            </p>
+            <p className="mt-8 flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.18em] text-white/80 lg:justify-end">
+              <Globe className="h-3.5 w-3.5 text-accent" />
+              Based in Makati / Open worldwide
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   );

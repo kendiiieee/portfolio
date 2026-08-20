@@ -23,28 +23,30 @@ export function ProfileAvatar({ src, name, className = '' }: ProfileAvatarProps)
   const showImage = Boolean(src) && !hasError;
 
   return (
-    <div
-      className={`relative mx-auto aspect-square h-[60vh] max-h-[650px] min-h-[350px] overflow-hidden rounded-[2.5rem] border border-border bg-surface shadow-2xl shadow-accent/10 lg:mx-0 ${className}`}
-    >
-      <div className="absolute inset-0 bg-gradient-to-br from-accent/20 via-transparent to-sky-400/10" />
-
-      {showImage ? (
-        <Image
-          src={src!}
-          alt={`Portrait of ${name}`}
-          fill
-          priority
-          className="object-cover"
-          sizes="(max-width: 1024px) 100vw, 60vw"
-          onError={() => setHasError(true)}
-        />
-      ) : (
-        <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-surface to-background">
-          <span className="font-display text-8xl font-bold text-accent/80 md:text-9xl tracking-tight">
-            {getInitials(name)}
-          </span>
-        </div>
-      )}
+    <div className={`relative mx-auto w-full max-w-[440px] lg:mx-0 ${className}`}>
+      <div
+        className="absolute -bottom-4 -left-4 hidden h-[55%] w-[70%] bg-accent sm:block"
+        aria-hidden
+      />
+      <div className="relative aspect-[4/5] overflow-hidden border-[6px] border-accent bg-surface">
+        {showImage ? (
+          <Image
+            src={src!}
+            alt={`Portrait of ${name}`}
+            fill
+            priority
+            className="object-cover"
+            sizes="(max-width: 1024px) 100vw, 440px"
+            onError={() => setHasError(true)}
+          />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center bg-paper">
+            <span className="font-display text-8xl font-bold tracking-tight text-accent">
+              {getInitials(name)}
+            </span>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

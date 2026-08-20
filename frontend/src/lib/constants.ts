@@ -16,8 +16,7 @@ export const SITE = {
   email: 'andreanicolecandelaria@gmail.com',
   location: 'Makati, Metro Manila, Philippines',
   resumeUrl: '/Candelaria - Resume.pdf',
-  /** Drop your photo at public/images/profile.jpg (or update this path). */
-  profileImage: '/images/profile.jpg',
+  profileImage: '/images/hero-profile.png', 
 } as const;
 
 /** Add your URLs below. Links with an empty href are hidden automatically. */

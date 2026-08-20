@@ -2,6 +2,7 @@ import { FALLBACK_PROJECTS } from '@/lib/constants';
 import { getFeaturedProjects } from '@/lib/api';
 import { ProjectCard } from '@/components/ui/ProjectCard';
 import { SectionHeading } from '@/components/ui/SectionHeading';
+import { Container } from '@/components/ui/Container';
 import type { Project } from '@/types';
 
 export async function FeaturedProjects() {
@@ -13,21 +14,30 @@ export async function FeaturedProjects() {
     projects = FALLBACK_PROJECTS;
   }
 
+  const [featured, ...rest] = projects;
+
   return (
-    <section id="projects" className="px-6 py-20">
-      <div className="mx-auto max-w-6xl">
+    <section id="projects" className="py-12">
+      <Container>
         <SectionHeading
+          index="06"
           eyebrow="Featured Projects"
-          title="Academic & Personal Work"
-          description="A selection of systems and applications spanning property management, reservations, mobile games, and health tracking."
+          title="Selected work"
+          description="Systems spanning property management, reservations, mobile games, and health tracking."
         />
 
-        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {projects.map((project) => (
+        {featured ? (
+          <div className="mb-6">
+            <ProjectCard project={featured} featured />
+          </div>
+        ) : null}
+
+        <div className="grid gap-6 md:grid-cols-2">
+          {rest.map((project) => (
             <ProjectCard key={project.id} project={project} />
           ))}
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

@@ -5,6 +5,7 @@ import Link from 'next/link';
 interface SocialLinksProps {
   links: SocialLink[];
   className?: string;
+  onAccent?: boolean;
 }
 
 function GitHubIcon() {
@@ -29,18 +30,26 @@ function SocialIcon({ icon }: { icon: SocialLink['icon'] }) {
   return <Mail className="h-4 w-4" />;
 }
 
-export function SocialLinks({ links, className = '' }: SocialLinksProps) {
+export function SocialLinks({
+  links,
+  className = '',
+  onAccent = false,
+}: SocialLinksProps) {
   if (links.length === 0) return null;
 
+  const linkClass = onAccent
+    ? 'border-white/35 text-white hover:bg-white hover:text-accent'
+    : 'border-border bg-paper text-muted hover:border-accent hover:bg-accent hover:text-white';
+
   return (
-    <div className={`flex flex-wrap items-center gap-4 ${className}`}>
+    <div className={`flex flex-wrap items-center gap-2 ${className}`}>
       {links.map((link) => (
         <Link
           key={link.id}
           href={link.href}
           target={link.href.startsWith('mailto:') ? undefined : '_blank'}
           rel={link.href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
-          className="inline-flex items-center gap-2 text-sm text-muted transition hover:text-accent"
+          className={`inline-flex items-center gap-2 border px-3 py-2 text-xs font-medium uppercase tracking-[0.16em] transition ${linkClass}`}
         >
           <SocialIcon icon={link.icon} />
           {link.label}

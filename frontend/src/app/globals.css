@@ -9,27 +9,37 @@
   --color-muted: var(--muted);
   --color-border: var(--border);
   --color-accent: var(--accent);
+  --color-accent-deep: var(--accent-deep);
+  --color-accent-soft: var(--accent-soft);
+  --color-paper: var(--paper);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-display: var(--font-zuume);
+  --font-editorial: var(--font-playfair);
 }
 
 :root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
-  --surface: #ffffff;
-  --muted: #64748b;
-  --border: #e2e8f0;
-  --accent: #4f46e5;
+  --background: #f7f4f1;
+  --foreground: #161111;
+  --surface: #fffdfa;
+  --muted: #6f635f;
+  --border: #e6dcd6;
+  --accent: #c43a3a;
+  --accent-deep: #8b1e28;
+  --accent-soft: rgba(196, 58, 58, 0.1);
+  --paper: #ffffff;
 }
 
 .dark {
-  --background: #070b14;
-  --foreground: #f8fafc;
-  --surface: #0f172a;
-  --muted: #94a3b8;
-  --border: #1e293b;
-  --accent: #818cf8;
+  --background: #0b0a0a;
+  --foreground: #f7f1ee;
+  --surface: #151111;
+  --muted: #b7a8a3;
+  --border: #3a2c2a;
+  --accent: #d95757;
+  --accent-deep: #a32632;
+  --accent-soft: rgba(217, 87, 87, 0.16);
+  --paper: #1c1615;
 }
 
 @layer base {
@@ -42,6 +52,39 @@
   }
 
   ::selection {
-    @apply bg-accent/30 text-foreground;
+    background: var(--accent);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+}
+
+@layer utilities {
+  .site-grain {
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    z-index: 80;
+    opacity: 0.04;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .dark .site-grain {
+    opacity: 0.065;
+    mix-blend-mode: overlay;
+  }
+
+  .red-rule {
+    width: 3.5rem;
+    height: 3px;
+    background: var(--accent);
+  }
+
+  .index-label {
+    @apply font-mono text-[11px] uppercase tracking-[0.28em] text-accent;
   }
 }

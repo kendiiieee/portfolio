@@ -2,7 +2,7 @@
 
 import { getAnalyticsStats, recordAnalyticsEvent } from '@/lib/api';
 import type { AnalyticsStats } from '@/types';
-import { Download, Eye, Handshake } from 'lucide-react';
+import { Container } from '@/components/ui/Container';
 import { useEffect, useState } from 'react';
 
 const initialStats: AnalyticsStats = {
@@ -34,31 +34,42 @@ export function SiteStats() {
   }, []);
 
   const metrics = [
-    { label: 'Visits', value: stats.visits, icon: Eye },
-    { label: 'Resume downloads', value: stats.resumeDownloads, icon: Download },
+    { label: 'Visits', value: stats.visits, featured: true },
+    { label: 'Resume downloads', value: stats.resumeDownloads, featured: false },
     {
       label: 'Collaboration inquiries',
       value: stats.collaborationInquiries,
-      icon: Handshake,
+      featured: false,
     },
   ];
 
   return (
-    <section aria-label="Portfolio activity" className="px-6 pb-20 pt-8 sm:pt-12">
-      <div className="mx-auto grid max-w-6xl gap-4 sm:grid-cols-3">
-        {metrics.map(({ label, value, icon: Icon }) => (
-          <div
-            key={label}
-            className="flex items-center gap-4 rounded-2xl border border-border bg-surface/50 p-5"
-          >
-            <Icon className="h-5 w-5 shrink-0 text-accent" aria-hidden />
-            <div>
-              <p className="text-2xl font-bold text-foreground">{value}</p>
-              <p className="text-sm text-muted">{label}</p>
+    <section aria-label="Portfolio activity" className="pb-4">
+      <Container>
+        <div className="grid overflow-hidden border border-border sm:grid-cols-3">
+          {metrics.map(({ label, value, featured }) => (
+            <div
+              key={label}
+              className={`flex items-end justify-between gap-4 px-6 py-8 ${
+                featured
+                  ? 'bg-accent text-white'
+                  : 'border-t border-border bg-surface sm:border-l sm:border-t-0'
+              }`}
+            >
+              <p className="font-display text-5xl font-bold leading-none">
+                {value}
+              </p>
+              <p
+                className={`max-w-[7rem] text-right text-xs leading-relaxed ${
+                  featured ? 'text-white/80' : 'text-muted'
+                }`}
+              >
+                {label}
+              </p>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      </Container>
     </section>
   );
 }

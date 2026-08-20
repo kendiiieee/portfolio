@@ -12,7 +12,7 @@ export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 24);
+    const handleScroll = () => setIsScrolled(window.scrollY > 16);
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -20,50 +20,48 @@ export function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-50 border-b transition-all duration-300 ${
-        isScrolled
-          ? 'border-border/80 bg-background/85 backdrop-blur-xl shadow-sm'
-          : 'border-transparent bg-transparent'
+      className={`sticky top-0 z-50 border-b-2 border-accent transition-all duration-300 ${
+        isScrolled ? 'bg-background/92 backdrop-blur-xl' : 'bg-background/80'
       }`}
     >
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+      <div className="mx-auto flex max-w-[1180px] items-center justify-between px-6 py-4 sm:px-8">
         <Link
           href="#about"
-          className="font-display text-lg font-semibold tracking-tight text-foreground transition hover:text-accent"
+          className="font-display text-xl font-semibold tracking-tight text-foreground transition hover:text-accent"
         >
           {SITE.name.split(' ')[0]}
           <span className="text-accent">.</span>
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex" aria-label="Main">
+        <nav className="hidden items-center gap-8 lg:flex" aria-label="Main">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-muted transition hover:text-foreground"
+              className="text-sm font-medium text-muted transition hover:text-accent"
             >
               {link.label}
             </Link>
           ))}
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <a
             href={SITE.resumeUrl}
             download
             onClick={() => {
               void recordAnalyticsEvent('resume_download').catch(() => undefined);
             }}
-            className="hidden items-center gap-2 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-white transition hover:bg-accent/90 sm:inline-flex"
+            className="hidden items-center gap-2 bg-accent px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-accent-deep sm:inline-flex"
           >
-            <Download className="h-4 w-4" />
+            <Download className="h-3.5 w-3.5" />
             Resume
           </a>
           <ThemeToggle />
 
           <button
             type="button"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface text-foreground md:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center border border-border bg-surface text-foreground lg:hidden"
             onClick={() => setIsOpen((open) => !open)}
             aria-expanded={isOpen}
             aria-label={isOpen ? 'Close menu' : 'Open menu'}
@@ -75,15 +73,15 @@ export function Header() {
 
       {isOpen ? (
         <nav
-          className="border-t border-border bg-background px-6 py-4 md:hidden"
+          className="border-t border-border bg-background px-6 py-5 lg:hidden"
           aria-label="Mobile"
         >
-          <ul className="flex flex-col gap-3">
+          <ul className="flex flex-col gap-1">
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="block rounded-lg px-3 py-2 text-sm font-medium text-muted transition hover:bg-surface hover:text-foreground"
+                  className="block px-2 py-2.5 text-sm font-medium text-muted transition hover:text-accent"
                   onClick={() => setIsOpen(false)}
                 >
                   {link.label}
@@ -100,7 +98,7 @@ export function Header() {
                   );
                   setIsOpen(false);
                 }}
-                className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold text-accent transition hover:bg-surface"
+                className="mt-2 flex items-center gap-2 bg-accent px-3 py-2.5 text-sm font-semibold text-white"
               >
                 <Download className="h-4 w-4" />
                 Download resume

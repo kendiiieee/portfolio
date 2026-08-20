@@ -1,70 +1,68 @@
 import { INTERNSHIP_EXPERIENCE } from '@/lib/constants';
 import { SectionHeading } from '@/components/ui/SectionHeading';
-import { BriefcaseBusiness, MapPin } from 'lucide-react';
+import { Container } from '@/components/ui/Container';
+import { MapPin } from 'lucide-react';
 
 export function InternshipExperience() {
   const experience = INTERNSHIP_EXPERIENCE;
 
   return (
-    <section id="experience" className="px-6 py-20">
-      <div className="mx-auto max-w-6xl">
+    <section id="experience" className="bg-surface py-12">
+      <Container>
         <SectionHeading
+          index="03"
           eyebrow="Professional Experience"
-          title="Internship Experience"
-          description="Applied backend development experience across web and mobile products at Inspire Holdings Incorporated."
+          title="Internship"
+          description="Applied backend development across web and mobile products at Inspire Holdings Incorporated."
         />
 
-        <article className="rounded-2xl border border-border bg-surface/50 p-6 sm:p-8">
-          <div className="flex flex-col gap-5 border-b border-border pb-6 md:flex-row md:items-start md:justify-between">
-            <div className="flex gap-4">
-              <div className="rounded-xl border border-border bg-background p-3 text-accent">
-                <BriefcaseBusiness className="h-6 w-6" aria-hidden />
-              </div>
-              <div>
-                <h3 className="font-display text-2xl font-bold text-foreground">
-                  {experience.company}
-                </h3>
-                <p className="mt-1 text-base font-medium text-accent">
-                  {experience.title}
-                </p>
-                <p className="mt-1 text-sm text-muted">{experience.period}</p>
-              </div>
+        <article className="overflow-hidden border border-border bg-background">
+          <div className="flex flex-col gap-6 bg-accent p-6 text-white sm:p-8 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-white/75">
+                {experience.period}
+              </p>
+              <h3 className="mt-3 font-display text-4xl font-bold tracking-tight">
+                {experience.company}
+              </h3>
+              <p className="mt-2 font-sans text-xl text-white/85">
+                {experience.title}
+              </p>
             </div>
 
-            <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-muted">
+            <div className="space-y-2 text-sm text-white/85">
               {experience.locations.map((location) => (
-                <span key={location} className="inline-flex items-center gap-1.5">
-                  <MapPin className="h-4 w-4 text-accent" aria-hidden />
+                <span key={location} className="flex items-center gap-2">
+                  <MapPin className="h-4 w-4" aria-hidden />
                   {location}
                 </span>
               ))}
             </div>
           </div>
 
-          <div className="mt-8 grid gap-8 lg:grid-cols-2">
-            {experience.projects.map((project) => (
+          <div className="grid lg:grid-cols-2">
+            {experience.projects.map((project, index) => (
               <article
                 key={project.name}
-                className="rounded-xl border border-border bg-background/60 p-6"
+                className={`p-6 sm:p-8 ${
+                  index === 0 ? 'lg:border-r lg:border-border' : 'border-t border-border lg:border-t-0'
+                }`}
               >
-                <div className="flex flex-wrap items-start justify-between gap-3">
-                  <div>
-                    <h4 className="font-display text-xl font-bold text-foreground">
-                      {project.name}
-                    </h4>
-                    <p className="mt-2 text-sm text-accent">{project.role}</p>
-                  </div>
-                </div>
-
+                <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-accent">
+                  Engagement {String(index + 1).padStart(2, '0')}
+                </p>
+                <h4 className="mt-3 font-display text-2xl font-bold text-foreground">
+                  {project.name}
+                </h4>
+                <p className="mt-2 text-sm font-medium text-accent">{project.role}</p>
                 <p className="mt-5 text-sm leading-relaxed text-muted">
                   {project.description}
                 </p>
-
-                <div className="mt-6 flex flex-wrap gap-3">
+                <div className="mt-6 flex flex-wrap gap-2">
                   {project.technologies.map((technology) => (
                     <span
                       key={technology}
-                      className="rounded-full border border-border px-3 py-1 text-xs font-medium text-muted"
+                      className="border border-border px-2.5 py-1 text-[11px] font-medium text-muted"
                     >
                       {technology}
                     </span>
@@ -74,7 +72,7 @@ export function InternshipExperience() {
             ))}
           </div>
         </article>
-      </div>
+      </Container>
     </section>
   );
 }

@@ -1,79 +1,75 @@
 import { CERTIFICATIONS } from '@/lib/constants';
 import { SectionHeading } from '@/components/ui/SectionHeading';
-import { Download, ExternalLink, Award } from 'lucide-react';
+import { Container } from '@/components/ui/Container';
+import { ArrowUpRight, Download } from 'lucide-react';
+
+function credentialMark(name: string): string {
+  return name
+    .split(/[–-]/)[0]
+    .trim()
+    .split(/\s+/)
+    .map((word) => word[0] ?? '')
+    .join('')
+    .slice(0, 3)
+    .toUpperCase();
+}
 
 export function Certifications() {
   return (
-    <section id="certifications" className="px-6 py-20">
-      <div className="mx-auto max-w-6xl">
+    <section id="certifications" className="py-12">
+      <Container>
         <SectionHeading
           eyebrow="Credentials"
           title="Certifications"
-          description="Professional credentials that support my technical foundation."
+          description="Verified credentials, kept as a record rather than a gallery."
         />
 
-        <div className="grid gap-6 md:grid-cols-2">
+        <ul className="divide-y divide-border border-y border-border">
           {CERTIFICATIONS.map((certification) => (
-            <article
+            <li
               key={certification.id}
-              className="overflow-hidden rounded-2xl border border-border bg-surface/50"
+              className="grid gap-5 py-6 md:grid-cols-[auto_1fr_auto] md:items-center md:gap-8"
             >
-              <a
-                href={certification.imageUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="block bg-background p-4 transition hover:bg-surface"
-                aria-label={`View ${certification.name} certificate`}
+              <div
+                className="flex h-16 w-16 shrink-0 items-center justify-center bg-accent font-display text-2xl font-bold text-white"
+                aria-hidden
               >
-                <object
-                  data={certification.imageUrl}
-                  type="application/pdf"
-                  aria-label={`${certification.name} certificate`}
-                  className="h-72 w-full"
-                >
-                  <span className="flex h-full items-center justify-center text-sm text-muted">
-                    Open the certificate to view the PDF.
-                  </span>
-                </object>
-              </a>
-
-              <div className="border-t border-border p-6">
-                <div className="flex items-start gap-3">
-                  <Award className="mt-1 h-5 w-5 shrink-0 text-accent" aria-hidden />
-                  <div>
-                    <h3 className="font-display text-xl font-bold text-foreground">
-                      {certification.name}
-                    </h3>
-                    <p className="mt-2 text-sm text-muted">
-                      {certification.issuer} · {certification.date}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="mt-5 flex flex-wrap gap-3">
-                  <a
-                    href={certification.imageUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm font-semibold text-foreground transition hover:border-accent hover:text-accent"
-                  >
-                    <ExternalLink className="h-4 w-4" aria-hidden />
-                    View certificate
-                  </a>
-                  <a
-                    href={certification.imageUrl}
-                    download
-                    className="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-white transition hover:bg-accent/90"
-                  >
-                    <Download className="h-4 w-4" aria-hidden />
-                    Download
-                  </a>
-                </div>
+                {credentialMark(certification.name)}
               </div>
-            </article>
+
+              <div>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-accent">
+                  {certification.issuer}
+                </p>
+                <h3 className="mt-1 font-display text-2xl font-bold leading-tight text-foreground">
+                  {certification.name}
+                </h3>
+                <p className="mt-1 text-sm text-muted">{certification.date}</p>
+              </div>
+
+              <div className="flex flex-wrap gap-2 md:justify-end">
+                <a
+                  href={certification.imageUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 border border-border bg-paper px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-foreground transition hover:border-accent hover:text-accent"
+                >
+                  View
+                  <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
+                </a>
+                <a
+                  href={certification.imageUrl}
+                  download
+                  className="inline-flex items-center gap-2 bg-accent px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-accent-deep"
+                >
+                  <Download className="h-3.5 w-3.5" aria-hidden />
+                  Download
+                </a>
+              </div>
+            </li>
           ))}
-        </div>
-      </div>
+        </ul>
+      </Container>
     </section>
   );
 }

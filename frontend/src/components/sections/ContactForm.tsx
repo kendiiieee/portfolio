@@ -3,6 +3,7 @@
 import { submitContactForm } from '@/lib/api';
 import { SITE } from '@/lib/constants';
 import { SectionHeading } from '@/components/ui/SectionHeading';
+import { Container } from '@/components/ui/Container';
 import type { ContactFormData } from '@/types';
 import { Loader2, Send, CheckCircle2, AlertCircle } from 'lucide-react';
 import { FormEvent, useState } from 'react';
@@ -16,6 +17,9 @@ const initialFormState: ContactFormData = {
   subject: '',
   message: '',
 };
+
+const fieldClass =
+  'w-full rounded-none border border-border bg-paper px-4 py-3 text-sm text-foreground outline-none transition focus:border-accent';
 
 export function ContactForm() {
   const [form, setForm] = useState<ContactFormData>(initialFormState);
@@ -50,36 +54,46 @@ export function ContactForm() {
   };
 
   return (
-    <section id="contact" className="px-6 py-20">
-      <div className="mx-auto max-w-6xl">
+    <section id="contact" className="bg-surface py-12">
+      <Container>
         <SectionHeading
+          index="07"
           eyebrow="Contact"
-          title="Let's Connect"
-          description={`Interested in collaborating or have a question? Send a message and I'll get back to you at ${SITE.email}.`}
+          title="Let's talk"
+          description={`A note for collaborations, questions, or opportunities — replies go to ${SITE.email}.`}
         />
 
-        <div className="grid gap-8 lg:grid-cols-[1fr_1.2fr]">
-          <aside className="rounded-2xl border border-border bg-surface/50 p-8">
-            <h3 className="font-display text-xl font-bold text-foreground">
+        <div className="grid border border-border lg:grid-cols-[0.85fr_1.15fr]">
+          <aside className="bg-accent p-8 text-white sm:p-10">
+            <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-white/70">
+              Direct line
+            </p>
+            <h3 className="mt-4 font-display text-4xl font-bold leading-none tracking-tight">
               Get in touch
             </h3>
-            <p className="mt-3 text-sm leading-relaxed text-muted">
-              I&apos;m open to internships, project collaborations, and
-              opportunities to grow as a developer and analyst.
+            <p className="mt-5 font-sans text-lg leading-relaxed text-white/85">
+              Open to internships, project collaborations, and roles where
+              backend systems and careful analysis matter.
             </p>
 
-            <dl className="mt-8 space-y-4 text-sm">
+            <dl className="mt-10 space-y-6 text-sm">
               <div>
-                <dt className="font-semibold text-foreground">Email</dt>
-                <dd className="mt-1 text-muted">{SITE.email}</dd>
+                <dt className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/60">
+                  Email
+                </dt>
+                <dd className="mt-1">{SITE.email}</dd>
               </div>
               <div>
-                <dt className="font-semibold text-foreground">Location</dt>
-                <dd className="mt-1 text-muted">{SITE.location}</dd>
+                <dt className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/60">
+                  Location
+                </dt>
+                <dd className="mt-1">{SITE.location}</dd>
               </div>
               <div>
-                <dt className="font-semibold text-foreground">Focus Areas</dt>
-                <dd className="mt-1 text-muted">
+                <dt className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/60">
+                  Focus
+                </dt>
+                <dd className="mt-1 text-white/90">
                   Full-stack development, database design, business analysis
                 </dd>
               </div>
@@ -88,15 +102,12 @@ export function ContactForm() {
 
           <form
             onSubmit={handleSubmit}
-            className="rounded-2xl border border-border bg-surface/50 p-8"
+            className="bg-background p-8 sm:p-10"
             noValidate
           >
             <div className="grid gap-5 sm:grid-cols-2">
-              <div className="sm:col-span-1">
-                <label
-                  htmlFor="name"
-                  className="mb-2 block text-sm font-medium text-foreground"
-                >
+              <div>
+                <label htmlFor="name" className="mb-2 block text-xs font-medium uppercase tracking-[0.14em] text-muted">
                   Name
                 </label>
                 <input
@@ -108,16 +119,13 @@ export function ContactForm() {
                   maxLength={100}
                   value={form.name}
                   onChange={(event) => handleChange('name', event.target.value)}
-                  className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20"
+                  className={fieldClass}
                   placeholder="Your name"
                 />
               </div>
 
-              <div className="sm:col-span-1">
-                <label
-                  htmlFor="email"
-                  className="mb-2 block text-sm font-medium text-foreground"
-                >
+              <div>
+                <label htmlFor="email" className="mb-2 block text-xs font-medium uppercase tracking-[0.14em] text-muted">
                   Email
                 </label>
                 <input
@@ -128,16 +136,13 @@ export function ContactForm() {
                   maxLength={255}
                   value={form.email}
                   onChange={(event) => handleChange('email', event.target.value)}
-                  className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20"
+                  className={fieldClass}
                   placeholder="you@example.com"
                 />
               </div>
 
               <div className="sm:col-span-2">
-                <label
-                  htmlFor="inquiryType"
-                  className="mb-2 block text-sm font-medium text-foreground"
-                >
+                <label htmlFor="inquiryType" className="mb-2 block text-xs font-medium uppercase tracking-[0.14em] text-muted">
                   Inquiry type
                 </label>
                 <select
@@ -150,7 +155,7 @@ export function ContactForm() {
                       event.target.value as ContactFormData['inquiryType'],
                     )
                   }
-                  className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20"
+                  className={fieldClass}
                 >
                   <option value="collaboration">Project collaboration</option>
                   <option value="opportunity">Job opportunity</option>
@@ -159,10 +164,7 @@ export function ContactForm() {
               </div>
 
               <div className="sm:col-span-2">
-                <label
-                  htmlFor="subject"
-                  className="mb-2 block text-sm font-medium text-foreground"
-                >
+                <label htmlFor="subject" className="mb-2 block text-xs font-medium uppercase tracking-[0.14em] text-muted">
                   Subject
                 </label>
                 <input
@@ -176,16 +178,13 @@ export function ContactForm() {
                   onChange={(event) =>
                     handleChange('subject', event.target.value)
                   }
-                  className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20"
+                  className={fieldClass}
                   placeholder="Project inquiry"
                 />
               </div>
 
               <div className="sm:col-span-2">
-                <label
-                  htmlFor="message"
-                  className="mb-2 block text-sm font-medium text-foreground"
-                >
+                <label htmlFor="message" className="mb-2 block text-xs font-medium uppercase tracking-[0.14em] text-muted">
                   Message
                 </label>
                 <textarea
@@ -199,7 +198,7 @@ export function ContactForm() {
                   onChange={(event) =>
                     handleChange('message', event.target.value)
                   }
-                  className="w-full resize-y rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20"
+                  className={`${fieldClass} resize-y`}
                   placeholder="Tell me about your project or opportunity..."
                 />
               </div>
@@ -207,10 +206,10 @@ export function ContactForm() {
 
             {feedback ? (
               <div
-                className={`mt-5 flex items-start gap-2 rounded-xl border px-4 py-3 text-sm ${
+                className={`mt-5 flex items-start gap-2 border px-4 py-3 text-sm ${
                   status === 'success'
-                    ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-400'
-                    : 'border-red-500/30 bg-red-500/10 text-red-400'
+                    ? 'border-emerald-600/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400'
+                    : 'border-accent/40 bg-accent-soft text-accent'
                 }`}
                 role="alert"
               >
@@ -226,23 +225,23 @@ export function ContactForm() {
             <button
               type="submit"
               disabled={status === 'loading'}
-              className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-accent px-6 py-3 text-sm font-semibold text-white transition hover:bg-accent/90 disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
+              className="mt-7 inline-flex w-full items-center justify-center gap-2 bg-accent px-6 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-accent-deep disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
             >
               {status === 'loading' ? (
                 <>
                   <Loader2 className="h-4 w-4 animate-spin" />
-                  Sending...
+                  Sending
                 </>
               ) : (
                 <>
                   <Send className="h-4 w-4" />
-                  Send Message
+                  Send message
                 </>
               )}
             </button>
           </form>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }
